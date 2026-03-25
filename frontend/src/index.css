@@ -1,0 +1,287 @@
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #0b0e14;
+  color: #c9d1d9;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* REVERT TO 50/50 SPLIT */
+.left-panel {
+  flex: 1;
+  padding: 40px;
+  background-color: #12141a;
+  border-right: 1px solid #30363d;
+  overflow-y: auto;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 40px;
+  background-color: #0b0e14;
+  overflow-y: auto;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #58a6ff;
+  font-weight: 800;
+}
+
+/* FORM STYLE FROM SCREENSHOT */
+.scenario-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.scenario-btn {
+  flex: 1;
+  padding: 12px;
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.scenario-btn:hover { background-color: #30363d; border-color: #8b949e; }
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #8b949e;
+  font-weight: 600;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #58a6ff;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: #238636;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.submit-btn:hover { background-color: #2ea043; }
+
+/* TIMELINE STYLES FOR RIGHT PANEL */
+.main-view {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.outcome-banner {
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.outcome-banner.blocked { color: #f85149; border: 2px solid #f85149; background: rgba(248, 81, 73, 0.05); }
+.outcome-banner.approved { color: #238636; border: 2px solid #238636; background: rgba(35, 134, 54, 0.05); }
+.outcome-banner.recovery { color: #d29922; border: 2px solid #d29922; background: rgba(210, 153, 34, 0.05); }
+
+.weather-hud {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  background-color: #161b22;
+  border-radius: 10px;
+  border: 1px solid #30363d;
+}
+
+.weather-stat { display: flex; flex-direction: column; align-items: center; }
+.stat-label { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; }
+.stat-value { font-size: 1rem; font-weight: bold; color: #58a6ff; }
+
+.timeline-flow { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.v-card { width: 100%; background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; }
+.v-card.blocked { border-color: #f85149; }
+.v-card.locked { border-color: #238636; }
+.v-card.recovery-active { border-color: #d29922; }
+
+.card-title { font-size: 0.75rem; font-weight: 800; color: #58a6ff; text-transform: uppercase; margin-bottom: 15px; }
+.card-grid { display: grid; gap: 15px; }
+
+.v-prop-label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; margin-bottom: 4px; }
+.v-prop-value { font-size: 1rem; font-weight: bold; }
+
+.v-arrow { color: #30363d; font-size: 1.2rem; }
+.active-tag { color: #238636; background: rgba(35, 134, 54, 0.1); padding: 4px 8px; border-radius: 4px; }
+.error-tag { color: #f85149; background: rgba(248, 81, 73, 0.1); padding: 4px 8px; border-radius: 4px; }
+
+/* ===== EXPLANATION PANEL ===== */
+.explanation-panel {
+  width: 100%;
+  background: linear-gradient(135deg, #161b22, #0d1117);
+  border: 1px solid #58a6ff44;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #21262d;
+  background: rgba(88, 166, 255, 0.05);
+}
+
+.exp-title {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #58a6ff;
+}
+
+.exp-badge {
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #4285f4, #0f9d58);
+  color: white;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.exp-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.exp-block {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.exp-block.advice {
+  border-color: #d29922;
+  background: rgba(210, 153, 34, 0.05);
+}
+
+.exp-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: #8b949e;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.exp-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e6edf3;
+}
+
+/* Language Toggle */
+.lang-btn {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid #30363d;
+  background: #21262d;
+  color: #8b949e;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: all 0.2s;
+  margin-left: 5px;
+}
+.lang-btn.active {
+  background: #58a6ff;
+  color: #0d1117;
+  border-color: #58a6ff;
+}
+.lang-btn:hover { border-color: #58a6ff; }
+
+.collapse-btn {
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* What If */
+.whatif-btn {
+  padding: 10px 18px;
+  background: rgba(210, 153, 34, 0.1);
+  border: 1px solid #d29922;
+  color: #d29922;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.whatif-btn:hover { background: rgba(210, 153, 34, 0.2); }
+.whatif-btn:disabled { opacity: 0.5; }
+
+.whatif-result {
+  background: rgba(248, 81, 73, 0.05);
+  border: 1px solid #f85149;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 10px;
+}
+
+.whatif-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.wi-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #8b949e;
+  min-width: 90px;
+  text-transform: uppercase;
+}
+.wi-value {
+  font-size: 0.9rem;
+  color: #e6edf3;
+}
+
