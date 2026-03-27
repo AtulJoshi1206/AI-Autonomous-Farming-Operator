@@ -1,0 +1,82 @@
+/Users/atuljoshi/Documents/Projects/AI Autonomous Farming Operator/utils/multilingual.py:3: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+INFO:     Started server process [13668]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+[DECISION OUTPUT]
+  task: गेहूं लगाने की
+  aggressive_action: Proceed with गेहूं लगाने की
+  risk_aware_action: Proceed with गेहूं लगाने की
+  reasoning: For गेहूं लगाने की गेहूं in तमिलनाडु, rain probability is 45% with humidity 60%. Hence proceed with गेहूं लगाने की is recommended.
+  confidence: Medium
+
+[GUARDRAIL OUTPUT]
+  status: approved
+  final_action: Proceed with गेहूं लगाने की
+  reason: Domain safety checks passed for गेहूं लगाने की of गेहूं
+
+[COMMIT OUTPUT]
+  action_committed: True
+  action: Proceed with गेहूं लगाने की
+  state_lock: 48_hours
+  system_state: locked
+  message: Action committed successfully
+
+[VERIFICATION OUTPUT]
+  verified: True
+  expected_rain: 45
+  actual_rain: 45
+  deviation: 0
+  deviation_level: low
+
+[RECOVERY OUTPUT]
+  recovered: False
+  message: No recovery needed
+  resolution: System stable. No recovery needed.
+INFO:     127.0.0.1:62074 - "POST /voice HTTP/1.1" 200 OK
+
+[DECISION OUTPUT]
+  task: गव्हाला खत घालणे
+  aggressive_action: Proceed with गव्हाला खत घालणे
+  risk_aware_action: Proceed with गव्हाला खत घालणे
+  reasoning: For गव्हाला खत घालणे गहू in उत्तराखंडातील रुद्रपूर, rain probability is 45% with humidity 60%. Hence proceed with गव्हाला खत घालणे is recommended.
+  confidence: Medium
+
+[GUARDRAIL OUTPUT]
+  status: approved
+  final_action: Proceed with गव्हाला खत घालणे
+  reason: Domain safety checks passed for गव्हाला खत घालणे of गहू
+
+[COMMIT OUTPUT]
+  action_committed: True
+  action: Proceed with गव्हाला खत घालणे
+  state_lock: 48_hours
+  system_state: locked
+  message: Action committed successfully
+
+[VERIFICATION OUTPUT]
+  verified: True
+  expected_rain: 45
+  actual_rain: 45
+  deviation: 0
+  deviation_level: low
+
+[RECOVERY OUTPUT]
+  recovered: False
+  message: No recovery needed
+  resolution: System stable. No recovery needed.
+INFO:     127.0.0.1:62090 - "POST /voice HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62100 - "POST /voice HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [13668]
