@@ -203,52 +203,55 @@ const TimelineView = ({ timeline, weather, summary, explanation, forecast, selec
           </div>
         </StageCard>
 
-        {/* ONLY SHOW DOWNSTREAM AGENTS IF GUARDRAIL PASSED */}
-        {(guardrail?.status === 'approved' || guardrail?.status === 'approved_with_conditions') ? (
-          <>
-            {/* Stage 3: Commit */}
-            <StageCard 
-              label="3.  ⚙️ Commitment Agent"
-              title="System State Commitment" 
-              statusClass={commit?.system_state === 'locked' ? 'locked' : ''}
-            >
-              <div className="v-prop">
-                <div className="v-prop-label">Action Log</div>
-                <div className="v-prop-value">{commit?.action || 'No operation committed'}</div>
-              </div>
-            </StageCard>
+        {/* Stage 3: Commit */}
+        <StageCard 
+          label="3.  ⚙️ Commitment Agent"
+          title="System State Commitment" 
+          statusClass={commit?.system_state === 'locked' ? 'locked' : ''}
+        >
+          <div className="v-prop">
+            <div className="v-prop-label">Action Log</div>
+            <div className="v-prop-value">{commit?.action || 'No operation committed'}</div>
+          </div>
+          <div className="v-prop">
+            <div className="v-prop-label">Status</div>
+            <div className="v-prop-value">{commit?.message || 'N/A'}</div>
+          </div>
+        </StageCard>
 
-            {/* Stage 4: Verify */}
-            <StageCard label="4.  📊 Verification Agent" title="Outcome Verification Trace">
-              <div className="v-prop" style={{ gridColumn: '1 / -1' }}>
-                <div className="v-prop-label">Trace Matrix Update</div>
-                <div className="v-prop-value" style={{ color: '#3fb950', fontWeight: 'bold' }}>✔ No deviation detected</div>
-              </div>
-              <div className="v-prop" style={{ gridColumn: '1 / -1', marginTop: '10px' }}>
-                <div className="v-prop-label">Verification Result</div>
-                <div className="v-prop-value">{verify?.message || 'Verification skipped'}</div>
-              </div>
-            </StageCard>
+        {/* Stage 4: Verify */}
+        <StageCard label="4.  📊 Verification Agent" title="Outcome Verification Trace">
+          <div className="v-prop" style={{ gridColumn: '1 / -1' }}>
+            <div className="v-prop-label">Trace Matrix Update</div>
+            <div className="v-prop-value" style={{ color: verify?.verified ? '#3fb950' : '#8b949e', fontWeight: 'bold' }}>
+              {verify?.verified ? '✔ Outcome Verified' : '○ Verification skipped'}
+            </div>
+          </div>
+          <div className="v-prop" style={{ gridColumn: '1 / -1', marginTop: '10px' }}>
+            <div className="v-prop-label">Verification Result</div>
+            <div className="v-prop-value">{verify?.reason || verify?.message || 'N/A'}</div>
+          </div>
+        </StageCard>
 
-            {/* Stage 5: Recover */}
-            <StageCard 
-              label="5.  🔁 Recovery Agent"
-              title="Automated Recovery Engine" 
-              statusClass={recover?.recovered ? 'recovery-active' : ''}
-            >
-              <div className="v-prop" style={{ gridColumn: '1 / -1' }}>
-                <div className="v-prop-label">Resolution Protocol</div>
-                <div className="v-prop-value" style={recover?.recovered ? { color: '#ffd60a', fontWeight: 'bold' } : {}}>
-                  <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0 }}>
-                    {recover?.resolution || 'System stable. No recovery needed.'}
-                  </pre>
-                </div>
-              </div>
-            </StageCard>
-          </>
-        ) : (
+        {/* Stage 5: Recover */}
+        <StageCard 
+          label="5.  🔁 Recovery Agent"
+          title="Automated Recovery Engine" 
+          statusClass={recover?.recovered ? 'recovery-active' : ''}
+        >
+          <div className="v-prop" style={{ gridColumn: '1 / -1' }}>
+            <div className="v-prop-label">Resolution Protocol</div>
+            <div className="v-prop-value" style={recover?.recovered ? { color: '#ffd60a', fontWeight: 'bold' } : {}}>
+              <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0 }}>
+                {recover?.message || recover?.resolution || 'System stable. No recovery needed.'}
+              </pre>
+            </div>
+          </div>
+        </StageCard>
+
+        {guardrail?.status === 'blocked' && (
           <div style={{ textAlign: 'center', margin: '20px 0', color: '#ff7b72', border: '1px dashed #ff7b72', padding: '15px', borderRadius: '8px', background: 'rgba(255, 123, 114, 0.05)' }}>
-             Pipeline Halted. Downstream Commit/Verify Agents bypassed due to Guardrail Policy Enforcement.
+            Pipeline status: BLOCKED. Downstream agents executed in simulation mode.
           </div>
         )}
 

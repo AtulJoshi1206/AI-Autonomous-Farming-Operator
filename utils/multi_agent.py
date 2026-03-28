@@ -79,17 +79,23 @@ class FarmingMultiAgentSystem:
             }
             return generate_farmer_explanation(context, target_lang)
 
-    async def run_flow(self, text=None, audio_path=None, location=None, crop=None, soil="medium"):
+    async def run_flow(self, text=None, audio_path=None, location=None, crop=None, task=None, soil="medium"):
         """
         Agentic flow with Phonetic TTS (Romanized).
         """
         # 1. Linguistic Agent (Input Layer)
         linguistic_in = self.linguistic_agent.process_input(text, audio_path)
 
-        # Let the Guardrail agent catch missing data! Override with extracted data
+        # Prioritize manual overrides from 'text' input if available
         final_location = linguistic_in.get("location") or location or "Unknown"
         final_crop = linguistic_in.get("crop") or crop or "Unknown"
         final_task = linguistic_in.get("task") or "Unknown"
+        
+        # If manual text input is provided, we use the raw inputs passed from the UI
+        if text:
+            final_location = location or final_location
+            final_crop = crop or final_crop
+            final_task = task or final_task
         source_lang = linguistic_in.get("detected_language", "English")
 
         # 2. Environmental Agent (Now Async for 2x faster APIs)

@@ -42,12 +42,12 @@ def run_pipeline(input_data):
         print(f"  {key}: {value}")
     timeline.append({"stage": "guardrail", "output": guardrail_output})
 
-    if guardrail_output.get("status") in ["blocked", "need_more_data"]:
-        print("\nPipeline Halted: Downstream Commit/Verify/Recover agents bypassed to save resources.")
+    if guardrail_output.get("status") == "need_more_data":
+        print("\nPipeline Halted: Missing core parameters (Crop/Task/Location). Bypassing downstream agents.")
         return {
             "decision":     decision_output,
             "guardrail":    guardrail_output,
-            "commit":       {"system_state": "idle", "action": "None"},
+            "commit":       {"system_state": "idle", "action": "None", "message": "Pipeline halted: Missing data"},
             "verification": {"verified": False, "deviation": None, "reason": "No action to verify"},
             "recovery":     {"recovered": False, "message": "No recovery needed"},
             "timeline":     timeline

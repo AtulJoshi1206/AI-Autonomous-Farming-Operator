@@ -38,13 +38,23 @@ def commit(guardrail_output):
     """
 
     # --- Guard: exit immediately if not approved ---
+    # --- Guard: Handle Blocked Tasks with Simulated Veto ---
+    if guardrail_output["status"] == "blocked":
+        return {
+            "action_committed": False,
+            "action":           guardrail_output.get("final_action", "Cancelled Operation"),
+            "state_lock":       None,
+            "system_state":     "idle",
+            "message":          "Action VETOED by Guardrail Policy"
+        }
+
     if guardrail_output["status"] != "approved":
         return {
             "action_committed": False,
             "action":           None,
             "state_lock":       None,
             "system_state":     "idle",
-            "message":          "No action taken"
+            "message":          "No action taken: Missing dependencies"
         }
 
     # --- Approved: commit and lock ---

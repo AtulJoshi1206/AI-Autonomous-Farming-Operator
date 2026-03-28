@@ -50,9 +50,10 @@ class TTSInput(BaseModel):
 async def run(data: PipelineInput):
     try:
         result = await multi_agent.run_flow(
-            text=data.text_input,
+            text=data.text_input or "Manual Entry",
             location=data.location,
             crop=data.crop,
+            task=data.task,
             soil=data.soil
         )
         
