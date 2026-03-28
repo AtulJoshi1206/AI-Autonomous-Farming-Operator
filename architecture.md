@@ -1,5 +1,5 @@
 # Comprehensive System Architecture & Deep Detail
-**AI Autonomous Farming Operator v2.0**
+**AI Autonomous Farming Operator v1.0**
 
 This document serves as the extended technical architectural blueprint for the AI Autonomous Farming Operator. It details the complete multi-agent lifecycle, explicit inter-agent data payload communication, strict deterministic safety pipeline protocols, external API tool integrations, and deeply embedded error-handling optimization strategies.
 
