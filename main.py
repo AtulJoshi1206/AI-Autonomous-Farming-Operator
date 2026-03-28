@@ -7,7 +7,6 @@ from agents.verification import verify, recover
 def print_timeline(timeline):
     """
     Prints the full execution trace for the current pipeline run.
-    Reads directly from the timeline list — no hardcoded values.
     """
     print("\n" + "=" * 27)
     print("  SYSTEM TIMELINE")
@@ -22,8 +21,7 @@ def print_timeline(timeline):
 def run_pipeline(input_data):
     """
     Core Decision Engine Pipeline.
-    Lifecycle: Input → Decision → Guardrail → Commit
-    commit() runs ONLY when guardrail status is 'approved'.
+    Lifecycle: Input → Decision → Guardrail → Commit → Verify → Recover
     """
 
     timeline = []
@@ -42,18 +40,19 @@ def run_pipeline(input_data):
         print(f"  {key}: {value}")
     timeline.append({"stage": "guardrail", "output": guardrail_output})
 
+    # ONLY STOP if the user entered absolute garbage (No crop/location)
     if guardrail_output.get("status") == "need_more_data":
-        print("\nPipeline Halted: Missing core parameters (Crop/Task/Location). Bypassing downstream agents.")
+        print("\nPipeline Halted: Useless or incomplete input. No agronomic relevance.")
         return {
             "decision":     decision_output,
             "guardrail":    guardrail_output,
-            "commit":       {"system_state": "idle", "action": "None", "message": "Pipeline halted: Missing data"},
+            "commit":       {"system_state": "idle", "action": "None", "message": "Pipeline halted: Incomplete data"},
             "verification": {"verified": False, "deviation": None, "reason": "No action to verify"},
             "recovery":     {"recovered": False, "message": "No recovery needed"},
             "timeline":     timeline
         }
 
-    # --- Step 3: Commit (runs only when approved) ---
+    # --- Step 3: Commit ---
     commit_output = commit(guardrail_output)
     print("\n[COMMIT OUTPUT]")
     for key, value in commit_output.items():

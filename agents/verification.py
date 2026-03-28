@@ -47,6 +47,13 @@ def verify(commit_output, input_data):
 
     # --- Guard: nothing was committed ---
     if commit_output["action_committed"] == False:
+        if "VETOED" in commit_output.get("message", ""):
+            return {
+                "verified":        False,
+                "deviation":       None,
+                "deviation_level": None,
+                "reason":          "Simulation: Safety Veto verified. No equipment damage risk."
+            }
         return {
             "verified":        False,
             "deviation":       None,
@@ -113,6 +120,11 @@ def recover(verification_output, commit_output):
 
     # Recovery context requirement: only meaningful when an action was committed
     if commit_output["action_committed"] != True:
+        if "VETOED" in commit_output.get("message", ""):
+             return {
+                "recovered": False,
+                "message":   "Safety Veto Active. Strategic pause confirmed — no recovery needed."
+            }
         return {
             "recovered": False,
             "message":   "No recovery needed"
